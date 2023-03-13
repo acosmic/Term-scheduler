@@ -13,18 +13,36 @@
         android:theme="@style/Theme.C196App"
         tools:targetApi="31">
         <activity
-            android:name=".ui.TermList"
-            android:label="Term List"
-            android:parentActivityName=".ui.MainActivity"
+            android:name=".ui.ClassDetails"
+            android:label="Class Details"
+            android:parentActivityName=".ui.TermDetails"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.TermDetails"
+            android:exported="false"
+            android:label="Term Details and Class List"
+            android:parentActivityName=".ui.TermList">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.TermList"
+            android:exported="false"
+            android:label="Term List"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.MainActivity"
-            android:label="C196 Term Planner App - Clint Mireles"
-            android:exported="true">
+            android:exported="true"
+            android:label="C196 Term Planner App - Clint Mireles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
