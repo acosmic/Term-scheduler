@@ -13,7 +13,7 @@
         android:theme="@style/Theme.C196App"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ClassDetails"
+            android:name=".ui.CourseDetails"
             android:label="Class Details"
             android:parentActivityName=".ui.TermDetails"
             android:exported="false">
