@@ -10,15 +10,15 @@ import java.util.Date;
 public class Term {
     @PrimaryKey(autoGenerate = true)
     private int ID;
-    private String Name;
-    private Date StartDate;
-    private Date EndDate;
+    private String name;
+    private Date startDate;
+    private Date endDate;
 
     public Term (int ID, String Name, Date StartDate, Date EndDate) {
         this.ID = ID;
-        this.Name = Name;
-        this.StartDate = StartDate;
-        this.EndDate = EndDate;
+        this.name = Name;
+        this.startDate = StartDate;
+        this.endDate = EndDate;
     }
 
     public Term (){}
@@ -32,26 +32,26 @@ public class Term {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String Name) {
-        this.Name = Name;
+        this.name = Name;
     }
 
     public Date getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(Date StartDate) {
-        this.StartDate = StartDate;
+        this.startDate = StartDate;
     }
 
     public Date getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     public void setEndDate(Date EndDate) {
-        this.EndDate = EndDate;
+        this.endDate = EndDate;
     }
 }

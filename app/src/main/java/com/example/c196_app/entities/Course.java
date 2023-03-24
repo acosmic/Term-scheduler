@@ -9,10 +9,10 @@ import java.util.Date;
 public class Course {
     @PrimaryKey(autoGenerate = true)
     private int ID;
-    private String Title;
-    private Date StartDate;
-    private Date EndDate;
-    private String Status; // (in progress, complete, dropped, planned to take)
+    private String title;
+    private Date startDate;
+    private Date endDate;
+    private String status; // (in progress, complete, dropped, planned to take)
     private int termID;
     private int instructorID;
 
@@ -20,10 +20,10 @@ public class Course {
 
     public Course (int ID, String Title, Date StartDate, Date EndDate, String Status, int termID, int instructorID) {
         this.ID = ID;
-        this.Title = Title;
-        this.StartDate = StartDate;
-        this.EndDate = EndDate;
-        this.Status = Status;
+        this.title = Title;
+        this.startDate = StartDate;
+        this.endDate = EndDate;
+        this.status = Status;
         this.termID = termID;
         this.instructorID = instructorID;
     }
@@ -39,35 +39,35 @@ public class Course {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String Title) {
-        this.Title = Title;
+        this.title = Title;
     }
 
     public Date getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(Date StartDate) {
-        this.StartDate = StartDate;
+        this.startDate = StartDate;
     }
 
     public Date getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     public void setEndDate(Date EndDate) {
-        this.EndDate = EndDate;
+        this.endDate = EndDate;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String Status) {
-        this.Status = Status;
+        this.status = Status;
     }
 
     public int getTermID() {

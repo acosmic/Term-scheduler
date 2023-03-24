@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.example.c196_app.dao.AssessmentDAO;
 import com.example.c196_app.dao.CourseDAO;
@@ -16,6 +17,7 @@ import com.example.c196_app.entities.Instructor;
 import com.example.c196_app.entities.Term;
 
 @Database(entities = {Term.class, Course.class, Assessment.class, Instructor.class}, version=1, exportSchema = false)
+@TypeConverters(Converters.class)
 public abstract class DatabaseBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();
     public abstract CourseDAO courseDAO();
