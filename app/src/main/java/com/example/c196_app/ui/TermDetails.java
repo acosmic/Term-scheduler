@@ -89,7 +89,7 @@ public class TermDetails extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                Intent intent=new Intent();
+//                Intent intent=new Intent();
             }
         });
 
