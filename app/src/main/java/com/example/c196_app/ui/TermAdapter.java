@@ -32,7 +32,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     Intent intent = new Intent(context, TermDetails.class);
                     intent.putExtra("id", current.getID());
                     intent.putExtra("name", current.getName());
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
                     String startDateString;
                     String endDateString;
                     if (current.getStartDate() == null) {
@@ -49,10 +49,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     }
                     intent.putExtra("startDate", startDateString);
                     intent.putExtra("endDate", endDateString);
-
-
-
-
                     context.startActivity(intent);
                 }
             });
