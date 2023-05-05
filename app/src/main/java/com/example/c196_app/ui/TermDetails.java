@@ -2,6 +2,8 @@ package com.example.c196_app.ui;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
@@ -65,6 +68,12 @@ public class TermDetails extends AppCompatActivity {
 //        editTermStartDate.setText(startDate);
 //        editTermEndDate.setText(endDate);
         repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView);
+        repository = new Repository(getApplication());
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        courseAdapter.setCourses(repository.getAllCourses());
         Button button = findViewById(R.id.saveterm);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +84,7 @@ public class TermDetails extends AppCompatActivity {
                                 sdf.parse(editTermStartDate.getText().toString()),
                                 sdf.parse(editTermEndDate.getText().toString()));
                         repository.insert(term);
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

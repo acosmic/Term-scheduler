@@ -81,6 +81,51 @@ public class Repository {
         });
     }
 
+    public List<Course>getAllCourses(){
+        databaseExecutor.execute(()->{
+            mAllCourses=mCourseDAO.getAllCourses();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAllCourses;
+    }
+
+    public void insert(Course course){
+        databaseExecutor.execute(() ->{
+            mCourseDAO.insert(course);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void update(Course course){
+        databaseExecutor.execute(() ->{
+            mCourseDAO.update(course);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void delete(Course course){
+        databaseExecutor.execute(() ->{
+            mCourseDAO.delete(course);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
 }
 
