@@ -51,8 +51,8 @@ public class TermDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_details);
         editTermName = findViewById(R.id.editTermName);
-        editTermStartDate = findViewById(R.id.editStartDate);
-        editTermEndDate = findViewById(R.id.editEndDate);
+        editTermStartDate = findViewById(R.id.editTermStartDate);
+        editTermEndDate = findViewById(R.id.editTermEndDate);
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
 
@@ -67,6 +67,8 @@ public class TermDetails extends AppCompatActivity {
         editTermName.setText(name);
 //        editTermStartDate.setText(startDate);
 //        editTermEndDate.setText(endDate);
+
+        // Show Courses
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.courseRecyclerView);
         repository = new Repository(getApplication());
@@ -74,6 +76,8 @@ public class TermDetails extends AppCompatActivity {
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         courseAdapter.setCourses(repository.getAllCourses());
+
+        //Save TERM
         Button button = findViewById(R.id.saveterm);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +121,8 @@ public class TermDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(TermDetails.this, startDate, myCalendarStart.get(Calendar.YEAR), myCalendarStart.get(Calendar.MONTH), myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(TermDetails.this, startDate, myCalendarStart.get(Calendar.YEAR),
+                        myCalendarStart.get(Calendar.MONTH), myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         startDate = (view, year, monthOfYear, dayOfMonth) -> {
@@ -145,7 +150,8 @@ public class TermDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(TermDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR), myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(TermDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
+                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -159,8 +165,8 @@ public class TermDetails extends AppCompatActivity {
 
             updateLabelEnd();
         };
-
-        FloatingActionButton fab = findViewById(R.id.addClassDetails);
+        // GOTO CLASS DETAILS SCREEN TO ADD NEW COURSES
+        FloatingActionButton fab = findViewById(R.id.addCourseDetails);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,16 +176,15 @@ public class TermDetails extends AppCompatActivity {
         });
     }
 
-
         private void updateLabelStart () {
-            String myFormat = "MM/dd/yy"; //In which you need put here
+            String myFormat = "MM/dd/yy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
             editTermStartDate.setText(sdf.format(myCalendarStart.getTime()));
         }
 
         private void updateLabelEnd () {
-            String myFormat = "MM/dd/yy"; //In which you need put here
+            String myFormat = "MM/dd/yy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
             editTermEndDate.setText(sdf.format(myCalendarEnd.getTime()));

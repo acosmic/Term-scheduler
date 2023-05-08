@@ -36,6 +36,8 @@ public class Repository {
         mInstructorDAO=db.instructorDAO();
         mAssessmentDAO=db.assessmentDAO();
     }
+
+    // TERMS - Dao Methods
     public List<Term>getAllTerms(){
         databaseExecutor.execute(()->{
             mAllTerms=mTermDAO.getAllTerms();

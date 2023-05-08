@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.c196_app.R;
 import com.example.c196_app.entities.Course;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
     class CourseViewHolder extends RecyclerView.ViewHolder {
@@ -29,8 +31,28 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     int position = getAdapterPosition();
                     final Course current = mCourses.get(position);
                     Intent intent = new Intent(context, CourseDetails.class);
+                    intent.putExtra("id", current.getID());
                     intent.putExtra("title", current.getTitle());
                     intent.putExtra("status", current.getStatus());
+                    intent.putExtra("termID", current.getTermID());
+                    intent.putExtra("instructorID", current.getInstructorID());
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+                    String startDateString;
+                    String endDateString;
+                    if (current.getStartDate() == null) {
+                        startDateString = "";
+                    }
+                    else {
+                        startDateString = sdf.format(current.getStartDate());
+                    }
+                    if (current.getEndDate() == null){
+                        endDateString = "";
+                    }
+                    else {
+                        endDateString = sdf.format(current.getEndDate());
+                    }
+                    intent.putExtra("startDate", startDateString);
+                    intent.putExtra("endDate", endDateString);
                     context.startActivity(intent);
                 }
             });

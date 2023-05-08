@@ -79,7 +79,7 @@
                     android:text="Start Date" />
 
                 <EditText
-                    android:id="@+id/editStartDate"
+                    android:id="@+id/editTermStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -98,7 +98,7 @@
                     android:text="End Date" />
 
                 <EditText
-                    android:id="@+id/editEndDate"
+                    android:id="@+id/editTermEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -123,7 +123,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addClassDetails"
+        android:id="@+id/addCourseDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
