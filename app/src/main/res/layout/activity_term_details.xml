@@ -118,6 +118,19 @@
                     android:layout_height="wrap_content"
                     android:text="Save" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/deleteTerm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FF0000"
+                    android:text="Delete" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </LinearLayout>
     </ScrollView>
 

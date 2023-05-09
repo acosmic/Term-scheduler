@@ -18,12 +18,12 @@ public class Course {
 
 
 
-    public Course (int ID, String Title, Date StartDate, Date EndDate, String Status, int termID, int instructorID) {
+    public Course (int ID, String title, Date startDate, Date endDate, String status, int termID, int instructorID) {
         this.ID = ID;
-        this.title = Title;
-        this.startDate = StartDate;
-        this.endDate = EndDate;
-        this.status = Status;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
         this.termID = termID;
         this.instructorID = instructorID;
     }
@@ -42,32 +42,32 @@ public class Course {
         return title;
     }
 
-    public void setTitle(String Title) {
-        this.title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date StartDate) {
-        this.startDate = StartDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date EndDate) {
-        this.endDate = EndDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String Status) {
-        this.status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getTermID() {

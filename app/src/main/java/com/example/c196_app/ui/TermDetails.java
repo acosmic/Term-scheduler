@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
+import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Term;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,8 +24,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class TermDetails extends AppCompatActivity {
@@ -44,6 +47,7 @@ public class TermDetails extends AppCompatActivity {
 
 
     Term term;
+    Term currentTerm;
     Repository repository;
 
     @Override
@@ -75,36 +79,57 @@ public class TermDetails extends AppCompatActivity {
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(repository.getAllCourses());
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course c : repository.getAllCourses()) {
+            if (c.getTermID() == id) filteredCourses.add(c);
+        }
+        courseAdapter.setCourses(filteredCourses);
+
+        //Delete TERM
+        Button deleteButton = findViewById(R.id.deleteTerm);
+        deleteButton.setOnClickListener(view -> {
+            for (Term term : repository.getAllTerms()){
+                if (term.getID() == id) currentTerm = term;
+            }
+        repository.delete(currentTerm);
+        Intent intent = new Intent(TermDetails.this, TermList.class);
+        startActivity(intent);
+        Toast.makeText(TermDetails.this, currentTerm.getName() +" successfully deleted", Toast.LENGTH_LONG).show();
+
+        });
+
 
         //Save TERM
-        Button button = findViewById(R.id.saveterm);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(id == -1){
-                    try {
-                        term = new Term(0, editTermName.getText().toString(),
-                                sdf.parse(editTermStartDate.getText().toString()),
-                                sdf.parse(editTermEndDate.getText().toString()));
-                        repository.insert(term);
+        Button saveButton = findViewById(R.id.saveterm);
+        saveButton.setOnClickListener(view -> {
+            if(id == -1){
+                try {
+                    term = new Term(0, editTermName.getText().toString(),
+                            sdf.parse(editTermStartDate.getText().toString()),
+                            sdf.parse(editTermEndDate.getText().toString()));
+                    repository.insert(term);
+                    Toast.makeText(TermDetails.this, term.getName() +" successfully added", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    startActivity(intent);
 
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                else {
-                    try {
-                        term = new Term(id, editTermName.getText().toString(),
-                                sdf.parse(editTermStartDate.getText().toString()),
-                                sdf.parse(editTermEndDate.getText().toString()));
-                        repository.update(term);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-//                Intent intent=new Intent();
             }
+            else {
+                try {
+                    term = new Term(id, editTermName.getText().toString(),
+                            sdf.parse(editTermStartDate.getText().toString()),
+                            sdf.parse(editTermEndDate.getText().toString()));
+                    repository.update(term);
+                    Toast.makeText(TermDetails.this, term.getName() +" successfully updated", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    startActivity(intent);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+//                Intent intent=new Intent();
         });
 
         editTermStartDate.setOnClickListener(new View.OnClickListener() {

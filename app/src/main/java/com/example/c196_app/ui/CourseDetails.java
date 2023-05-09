@@ -67,6 +67,8 @@ public class CourseDetails extends AppCompatActivity {
         editCourseName.setText(title);
         editCourseStatus.setText(status);
 
+        repository = new Repository(getApplication());
+
         //Save COURSE
         Button button = findViewById(R.id.saveCourse);
         button.setOnClickListener(new View.OnClickListener() {
