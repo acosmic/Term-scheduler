@@ -129,7 +129,6 @@ public class TermDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-//                Intent intent=new Intent();
         });
 
         editTermStartDate.setOnClickListener(new View.OnClickListener() {
@@ -196,6 +195,7 @@ public class TermDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TermDetails.this, CourseDetails.class);
+                intent.putExtra("termID", id);
                 startActivity(intent);
             }
         });

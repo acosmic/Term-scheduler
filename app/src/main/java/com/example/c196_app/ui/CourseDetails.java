@@ -79,7 +79,7 @@ public class CourseDetails extends AppCompatActivity {
                         course = new Course(0, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                editCourseStatus.getText().toString(),0, 0); //
+                                editCourseStatus.getText().toString(),termID, 0); //
                         repository.insert(course);
 
                     } catch (ParseException e) {
