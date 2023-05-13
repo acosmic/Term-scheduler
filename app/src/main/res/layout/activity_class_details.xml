@@ -9,9 +9,10 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="500dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,8 +67,8 @@
                     android:id="@+id/editCourseStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:focusableInTouchMode="false"
+                    android:inputType="none"
 
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -85,14 +86,15 @@
                     android:id="@+id/editCourseEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:focusableInTouchMode="false"
+                    android:inputType="none"
 
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -101,7 +103,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save" />
+
+                <Button
+                    android:id="@+id/deleteCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="200dp"
+                    android:backgroundTint="#FF0000"
+                    android:text="Delete"
+                    tools:visibility="visible" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Note" />
+
+                <EditText
+                    android:id="@+id/editCourseNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

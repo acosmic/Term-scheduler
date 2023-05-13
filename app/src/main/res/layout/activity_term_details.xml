@@ -34,40 +34,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Term" />
             </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Term Start Date" />-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/editStartDate"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="January" />-->
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Term End Date" />-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/editEndDate"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="June" />-->
-<!--            </LinearLayout>-->
+            
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"

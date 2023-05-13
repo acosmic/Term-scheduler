@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
@@ -26,6 +27,7 @@ public class CourseDetails extends AppCompatActivity {
     EditText editCourseStartDate;
     EditText editCourseEndDate;
     EditText editCourseStatus;
+    EditText editNote;
 
     DatePickerDialog.OnDateSetListener startDate;
     DatePickerDialog.OnDateSetListener endDate;
@@ -41,6 +43,7 @@ public class CourseDetails extends AppCompatActivity {
     int instructorID;
 
     Course course;
+    Course currentCourse;
     Repository repository;
 
 
@@ -68,6 +71,20 @@ public class CourseDetails extends AppCompatActivity {
         editCourseStatus.setText(status);
 
         repository = new Repository(getApplication());
+
+
+        //Delete TERM
+        Button deleteCourseButton = findViewById(R.id.deleteCourse);
+        deleteCourseButton.setOnClickListener(view -> {
+            for (Course course : repository.getAllCourses()){
+                if (course.getID() == id) currentCourse = course;
+            }
+            repository.delete(currentCourse);
+            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+            startActivity(intent);
+            Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully deleted", Toast.LENGTH_LONG).show();
+
+        });
 
         //Save COURSE
         Button button = findViewById(R.id.saveCourse);
@@ -97,7 +114,6 @@ public class CourseDetails extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-//                Intent intent=new Intent();
             }
         });
         editCourseStartDate.setOnClickListener(new View.OnClickListener() {
@@ -158,15 +174,6 @@ public class CourseDetails extends AppCompatActivity {
 
             updateLabelEnd();
         };
-        // TODO  Change this for next screen? -- GOTO CLASS DETAILS SCREEN TO ADD NEW COURSES
-//        FloatingActionButton fab = findViewById(R.id.addCourseDetails);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(TermDetails.this, CourseDetails.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void updateLabelStart () {

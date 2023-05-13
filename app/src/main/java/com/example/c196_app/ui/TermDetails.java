@@ -189,9 +189,9 @@ public class TermDetails extends AppCompatActivity {
 
             updateLabelEnd();
         };
-        // GOTO CLASS DETAILS SCREEN TO ADD NEW COURSES
-        FloatingActionButton fab = findViewById(R.id.addCourseDetails);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // GOTO COURSE DETAILS SCREEN TO ADD NEW COURSES
+        FloatingActionButton addCourse = findViewById(R.id.addCourseDetails);
+        addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TermDetails.this, CourseDetails.class);
