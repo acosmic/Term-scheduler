@@ -154,4 +154,14 @@
         android:layout_height="357dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="301dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:text="Add Course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addCourseDetails" />
 </androidx.constraintlayout.widget.ConstraintLayout>
