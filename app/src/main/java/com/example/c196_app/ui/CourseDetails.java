@@ -22,6 +22,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+//TODO create instructor adapter and instructor details screen
+
+
 public class CourseDetails extends AppCompatActivity {
     EditText editCourseName;
     EditText editCourseStartDate;
@@ -96,8 +99,9 @@ public class CourseDetails extends AppCompatActivity {
                         course = new Course(0, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                editCourseStatus.getText().toString(),termID, 0); //
+                                editCourseStatus.getText().toString(),termID, 0);
                         repository.insert(course);
+                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
 
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -110,6 +114,8 @@ public class CourseDetails extends AppCompatActivity {
                                 sdf.parse(editCourseEndDate.getText().toString()),
                                 editCourseStatus.getText().toString(),termID, instructorID);
                         repository.update(course);
+                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -120,7 +126,6 @@ public class CourseDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Date date;
                 //get value from other screen,but I'm going to hard code it right now
                 String info = editCourseStartDate.getText().toString();
@@ -135,8 +140,6 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
         startDate = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-
             myCalendarStart.set(Calendar.YEAR, year);
             myCalendarStart.set(Calendar.MONTH, monthOfYear);
             myCalendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -149,7 +152,6 @@ public class CourseDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Date date;
                 //get value from other screen,but I'm going to hard code it right now
                 String info = editCourseEndDate.getText().toString();
@@ -165,8 +167,6 @@ public class CourseDetails extends AppCompatActivity {
         });
 
         endDate = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-
             myCalendarEnd.set(Calendar.YEAR, year);
             myCalendarEnd.set(Calendar.MONTH, monthOfYear);
             myCalendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);

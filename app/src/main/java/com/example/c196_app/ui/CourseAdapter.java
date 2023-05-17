@@ -19,12 +19,12 @@ import java.util.Locale;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
     class CourseViewHolder extends RecyclerView.ViewHolder {
-        private final TextView courseItemView;
-        private final TextView courseItemView2;
+        private final TextView courseNameItemView;
+        private final TextView courseStatusItemView;
         private CourseViewHolder(View itemView){
             super(itemView);
-            courseItemView=itemView.findViewById(R.id.textViewCourseName);
-            courseItemView2=itemView.findViewById(R.id.textViewCourseStatus);
+            courseNameItemView =itemView.findViewById(R.id.textViewCourseName); // course_list_item.xml
+            courseStatusItemView =itemView.findViewById(R.id.textViewCourseStatus); // course_list_item.xml
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
@@ -79,12 +79,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             Course current = mCourses.get(position);
             String title = current.getTitle();
             String status = current.getStatus();
-            holder.courseItemView.setText(title);
-            holder.courseItemView2.setText(status);
+            holder.courseNameItemView.setText(title);
+            holder.courseStatusItemView.setText(status);
         }
         else {
-            holder.courseItemView.setText("no title");
-            holder.courseItemView2.setText("no status");
+            holder.courseNameItemView.setText("no title");
+            holder.courseStatusItemView.setText("no status");
         }
     }
     @Override
