@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.c196_app.Adapter.TermAdapter;
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
 import com.example.c196_app.entities.Term;
@@ -34,6 +35,14 @@ public class TermList extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent intent=new Intent(TermList.this, TermDetails.class);
+                startActivity(intent);
+            }
+        });
+        Button instructorList=findViewById(R.id.gotoInstructorList);
+        instructorList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TermList.this, InstructorList.class);
                 startActivity(intent);
             }
         });

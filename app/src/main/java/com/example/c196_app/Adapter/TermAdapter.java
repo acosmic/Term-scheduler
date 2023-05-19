@@ -1,4 +1,4 @@
-package com.example.c196_app.ui;
+package com.example.c196_app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.c196_app.R;
 import com.example.c196_app.entities.Term;
+import com.example.c196_app.ui.TermDetails;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

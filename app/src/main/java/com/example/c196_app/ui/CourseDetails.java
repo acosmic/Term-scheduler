@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-//TODO create instructor adapter and instructor details screen
+
 
 
 public class CourseDetails extends AppCompatActivity {

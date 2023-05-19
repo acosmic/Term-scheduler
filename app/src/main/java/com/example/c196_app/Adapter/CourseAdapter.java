@@ -1,4 +1,4 @@
-package com.example.c196_app.ui;
+package com.example.c196_app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.c196_app.R;
 import com.example.c196_app.entities.Course;
+import com.example.c196_app.ui.CourseDetails;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

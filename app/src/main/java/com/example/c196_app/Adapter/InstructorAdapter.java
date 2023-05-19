@@ -1,4 +1,4 @@
-package com.example.c196_app.ui;
+package com.example.c196_app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.c196_app.R;
-import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
+import com.example.c196_app.ui.InstructorDetails;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.InstructorViewHolder> {
     class InstructorViewHolder extends RecyclerView.ViewHolder{
@@ -68,8 +66,8 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
             holder.lastNameIV.setText(lastName);
         }
         else {
-            holder.firstNameIV.setText("no title");
-            holder.lastNameIV.setText("no status");
+            holder.firstNameIV.setText("no name");
+            holder.lastNameIV.setText("");
         }
     }
     @Override
