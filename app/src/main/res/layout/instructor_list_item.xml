@@ -9,26 +9,28 @@
 
     <TextView
         android:id="@+id/InstructorFirstName"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#2196F3"
         android:fontFamily="sans-serif"
         android:text="TextView"
         android:textAlignment="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/InstructorLastName"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="sans-serif"
-        android:text="TextView"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/InstructorFirstName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/InstructorLastName"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:fontFamily="sans-serif"-->
+<!--        android:text="TextView"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/InstructorFirstName"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

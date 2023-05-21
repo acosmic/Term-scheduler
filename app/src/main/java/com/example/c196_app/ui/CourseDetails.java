@@ -114,7 +114,7 @@ public class CourseDetails extends AppCompatActivity {
                                 sdf.parse(editCourseEndDate.getText().toString()),
                                 editCourseStatus.getText().toString(),termID, instructorID);
                         repository.update(course);
-                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
 
                     } catch (ParseException e) {
                         e.printStackTrace();

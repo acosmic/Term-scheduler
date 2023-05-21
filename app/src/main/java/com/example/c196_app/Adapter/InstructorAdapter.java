@@ -20,12 +20,12 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
     class InstructorViewHolder extends RecyclerView.ViewHolder{
         //TODO: put instructor_list_item variables here - reference CourseAdapter
         private final TextView firstNameIV;
-        private final TextView lastNameIV;
+//        private final TextView lastNameIV;
         private InstructorViewHolder(View itemView){
             super(itemView);
             //TODO: put instructor_list_item variables here - reference CourseAdapter
             firstNameIV = itemView.findViewById(R.id.InstructorFirstName);
-            lastNameIV = itemView.findViewById(R.id.InstructorLastName);
+//            lastNameIV = itemView.findViewById(R.id.InstructorLastName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -62,12 +62,12 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.In
             Instructor current = mInstructors.get(position);
             String firstName = current.getFirstName();
             String lastName = current.getLastName();
-            holder.firstNameIV.setText(firstName);
-            holder.lastNameIV.setText(lastName);
+            holder.firstNameIV.setText(firstName+" "+lastName);
+//            holder.lastNameIV.setText(lastName);
         }
         else {
             holder.firstNameIV.setText("no name");
-            holder.lastNameIV.setText("");
+//            holder.lastNameIV.setText("");
         }
     }
     @Override

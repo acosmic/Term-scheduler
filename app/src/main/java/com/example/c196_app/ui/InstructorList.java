@@ -38,4 +38,14 @@ public class InstructorList extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        List<Instructor> allInstructors = repository.getAllInstructors();
+        RecyclerView recyclerView=findViewById(R.id.instructorRecyclerView);
+        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
+        recyclerView.setAdapter(instructorAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        instructorAdapter.setInstructors(allInstructors);
+    }
 }
