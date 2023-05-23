@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -32,9 +33,10 @@ public class CourseDetails extends AppCompatActivity {
     EditText editCourseName;
     EditText editCourseStartDate;
     EditText editCourseEndDate;
-    EditText editCourseStatus;
+    Spinner spinnerStatus;
     EditText editNote;
     Spinner spinnerInstructor;
+
 
     DatePickerDialog.OnDateSetListener startDate;
     DatePickerDialog.OnDateSetListener endDate;
@@ -64,7 +66,7 @@ public class CourseDetails extends AppCompatActivity {
         editCourseName = findViewById(R.id.editCourseName);
         editCourseStartDate = findViewById(R.id.editCourseStartDate);
         editCourseEndDate = findViewById(R.id.editCourseEndDate);
-        editCourseStatus = findViewById(R.id.editCourseStatus);
+        spinnerStatus = findViewById(R.id.editCourseStatus);
         spinnerInstructor = findViewById(R.id.spinnerInstructor);
         id = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -79,18 +81,37 @@ public class CourseDetails extends AppCompatActivity {
         editCourseStartDate.setText(courseStartDate);
         editCourseEndDate.setText(courseEndDate);
         editCourseName.setText(title);
-        editCourseStatus.setText(status);
+
 
         repository = new Repository(getApplication());
 
+        // Set List for Status Spinner
+        List<String> statuses = new ArrayList<>();
+        statuses.add("Plan To Take");
+        statuses.add("In Progress");
+        statuses.add("Dropped");
+        statuses.add("Completed");
+
+        ArrayAdapter<String> courseStatusArrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, statuses
+        );
+        courseStatusArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerStatus.setAdapter(courseStatusArrayAdapter);
+
+        if (id > 0){
+            spinnerStatus.setSelection(courseStatusArrayAdapter.getPosition(status));
+        } else {
+            spinnerStatus.setSelection(courseStatusArrayAdapter.getPosition("Plan To Take"));
+        }
+
+
+        // Get current Instructor
         for (Instructor instructor : repository.getAllInstructors()){
             if (instructor.getID() == instructorID) currentInstructor = instructor;
 
         }
 
-
-
-        // Instructor DropDown menu
+        // Instructor Spinner menu
         instructorList = repository.getAllInstructors();
         List<String> instructorNames = new ArrayList<>();
         for (Instructor instructor : instructorList) {
@@ -133,12 +154,13 @@ public class CourseDetails extends AppCompatActivity {
                 for (Instructor instructor : repository.getAllInstructors()){
                     if ((instructor.getFirstName() + " " + instructor.getLastName()).equals(instructorFullName)) instructorID = instructor.getID();
                 }
+                status = spinnerStatus.getSelectedItem().toString();
                 if(id == -1){
                     try {
                         course = new Course(0, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                editCourseStatus.getText().toString(),termID, instructorID);
+                                status,termID, instructorID);
                         repository.insert(course);
                         Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
 
@@ -151,7 +173,7 @@ public class CourseDetails extends AppCompatActivity {
                         course = new Course(id, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                editCourseStatus.getText().toString(),termID, instructorID);
+                                status,termID, instructorID);
                         repository.update(course);
                         Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
 

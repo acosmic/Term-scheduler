@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="Status" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/editCourseStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,7 +66,8 @@
                 <Spinner
                     android:id="@+id/spinnerInstructor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
             </LinearLayout>
 
 
