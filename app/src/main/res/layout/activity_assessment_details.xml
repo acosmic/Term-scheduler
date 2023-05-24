@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CourseDetails">
+    tools:context=".ui.AssessmentDetails">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
@@ -27,13 +27,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Course Name" />
+                    android:text="Assessment Name" />
 
                 <EditText
-                    android:id="@+id/editCourseName"
+                    android:id="@+id/editAssessmentName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Course" />
+                    android:hint="Assessment" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,30 +44,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status" />
+                    android:text="Type" />
 
                 <Spinner
-                    android:id="@+id/editCourseStatus"
+                    android:id="@+id/editAssessmentType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Status" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Instructor" />
-
-                <Spinner
-                    android:id="@+id/spinnerInstructor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -77,10 +62,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start Date" />
+                    android:text="Date" />
 
                 <EditText
-                    android:id="@+id/editCourseStartDate"
+                    android:id="@+id/editAssessmentDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="false"
@@ -89,24 +74,6 @@
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="End Date" />
-
-                <EditText
-                    android:id="@+id/editCourseEndDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:inputType="none"
-
-                    />
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -115,13 +82,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saveCourse"
+                    android:id="@+id/saveAssessment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save" />
 
                 <Button
-                    android:id="@+id/deleteCourse"
+                    android:id="@+id/deleteAssessment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -131,34 +98,9 @@
                     tools:visibility="visible" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edit Note" />
-
-                <EditText
-                    android:id="@+id/editCourseNote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Notes" />
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@+id/scrollView"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/assessmentRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="453dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="277dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

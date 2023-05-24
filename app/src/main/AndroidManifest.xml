@@ -22,6 +22,15 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.AssessmentDetails"
+            android:label="Course Details"
+            android:parentActivityName=".ui.CourseDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.TermDetails"
             android:exported="false"
             android:label="Term Details and Course List"
