@@ -16,6 +16,7 @@ import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
 import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -162,7 +163,7 @@ public class CourseDetails extends AppCompatActivity {
                                 sdf.parse(editCourseEndDate.getText().toString()),
                                 status,termID, instructorID);
                         repository.insert(course);
-                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CourseDetails.this, course.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
 
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -175,7 +176,7 @@ public class CourseDetails extends AppCompatActivity {
                                 sdf.parse(editCourseEndDate.getText().toString()),
                                 status,termID, instructorID);
                         repository.update(course);
-                        Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CourseDetails.this, course.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
 
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -183,6 +184,17 @@ public class CourseDetails extends AppCompatActivity {
                 }
             }
         });
+
+        // ADD Assessment button
+        FloatingActionButton addAssessment = findViewById(R.id.addAssessment);
+        addAssessment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(CourseDetails.this, AssessmentDetails.class);
+                startActivity(intent);
+            }
+        });
+
         editCourseStartDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
