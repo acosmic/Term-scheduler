@@ -1,16 +1,20 @@
 package com.example.c196_app.ui;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
+import com.example.c196_app.entities.Assessment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +37,8 @@ public class AssessmentDetails extends AppCompatActivity {
     String type;
     int courseID;
 
+    Assessment assessment;
+    Assessment currentAssessment;
     Repository repository;
 
     @Override
@@ -95,6 +101,58 @@ public class AssessmentDetails extends AppCompatActivity {
 
             updateLabel();
         };
+
+        // DELETE ASSESSMENT
+        Button deleteAssessment = findViewById(R.id.deleteAssessment);
+        deleteAssessment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (Assessment assessment : repository.getAllAssessments()){
+                    if (assessment.getID() == id) currentAssessment = assessment;
+                }
+                repository.delete(currentAssessment);
+                Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                intent.putExtra("id", courseID);
+                startActivity(intent);
+                Toast.makeText(AssessmentDetails.this, currentAssessment.getTitle() + " successfully deleted", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // SAVE ASSESSMENT
+        Button saveAssessment = findViewById(R.id.saveAssessment);
+        saveAssessment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (id == -1){
+                    try {
+                        assessment = new Assessment(0,editAssessmentName.getText().toString(),
+                                spinnerType.getSelectedItem().toString(),
+                                sdf.parse(editAssessmentDate.getText().toString()),
+                                courseID);
+                        repository.insert(assessment);
+                        Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                        intent.putExtra("id", courseID);
+                        startActivity(intent);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        assessment = new Assessment(id,editAssessmentName.getText().toString(),
+                                spinnerType.getSelectedItem().toString(),
+                                sdf.parse(editAssessmentDate.getText().toString()),
+                                courseID);
+                        repository.update(assessment);
+                        Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                        intent.putExtra("id", courseID);
+                        startActivity(intent);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
     private void updateLabel() {

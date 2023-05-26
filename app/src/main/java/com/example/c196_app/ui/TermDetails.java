@@ -46,7 +46,7 @@ public class TermDetails extends AppCompatActivity {
 
     Term term;
     Term currentTerm;
-    Repository repository;
+    Repository repository = new Repository(getApplication());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,6 @@ public class TermDetails extends AppCompatActivity {
         // Show Courses
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.courseRecyclerView);
-        repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

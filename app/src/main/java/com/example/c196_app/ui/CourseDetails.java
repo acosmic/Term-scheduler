@@ -1,6 +1,8 @@
 package com.example.c196_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -12,8 +14,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.c196_app.Adapter.AssessmentAdapter;
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
+import com.example.c196_app.entities.Assessment;
 import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -85,6 +89,16 @@ public class CourseDetails extends AppCompatActivity {
 
 
         repository = new Repository(getApplication());
+        //Show Assessments
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Assessment> filteredAssessments = new ArrayList<>();
+        for (Assessment a : repository.getAllAssessments()){
+            if (a.getCourseID() == id) filteredAssessments.add(a);
+        }
+        assessmentAdapter.setAssessments(filteredAssessments);
 
         // Set List for Status Spinner
         List<String> statuses = new ArrayList<>();
@@ -131,6 +145,8 @@ public class CourseDetails extends AppCompatActivity {
             instructorFullName = currentInstructor.getFirstName() + " " + currentInstructor.getLastName();
             spinnerInstructor.setSelection(instructorArrayAdapter.getPosition(instructorFullName));
         }
+
+
 
 
         //Delete TERM
@@ -191,6 +207,7 @@ public class CourseDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(CourseDetails.this, AssessmentDetails.class);
+                intent.putExtra("courseID", id);
                 startActivity(intent);
             }
         });
