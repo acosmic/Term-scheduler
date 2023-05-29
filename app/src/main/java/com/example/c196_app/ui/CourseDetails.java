@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -149,17 +150,15 @@ public class CourseDetails extends AppCompatActivity {
 
 
 
-        //Delete TERM
+        //Delete COURSE
         Button deleteCourseButton = findViewById(R.id.deleteCourse);
         deleteCourseButton.setOnClickListener(view -> {
             for (Course course : repository.getAllCourses()){
                 if (course.getID() == id) currentCourse = course;
             }
             repository.delete(currentCourse);
-            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
-            startActivity(intent);
             Toast.makeText(CourseDetails.this, currentCourse.getTitle() +" successfully deleted", Toast.LENGTH_LONG).show();
-
+            this.finish();
         });
 
         //Save COURSE
@@ -180,7 +179,7 @@ public class CourseDetails extends AppCompatActivity {
                                 status,termID, instructorID);
                         repository.insert(course);
                         Toast.makeText(CourseDetails.this, course.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
-
+                        finishActivity();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -193,7 +192,7 @@ public class CourseDetails extends AppCompatActivity {
                                 status,termID, instructorID);
                         repository.update(course);
                         Toast.makeText(CourseDetails.this, course.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
-
+                        finishActivity();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -264,6 +263,32 @@ public class CourseDetails extends AppCompatActivity {
 
             updateLabelEnd();
         };
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Assessment> filteredAssessments = new ArrayList<>();
+        for (Assessment a : repository.getAllAssessments()){
+            if (a.getCourseID() == id) filteredAssessments.add(a);
+        }
+        assessmentAdapter.setAssessments(filteredAssessments);
+    }
+
+    // BACK Button - finish current activity
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return false;
+    }
+    private void finishActivity(){
+        this.finish();
     }
 
     private void updateLabelStart () {

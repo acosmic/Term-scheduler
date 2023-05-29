@@ -3,6 +3,7 @@ package com.example.c196_app.ui;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -111,10 +112,8 @@ public class AssessmentDetails extends AppCompatActivity {
                     if (assessment.getID() == id) currentAssessment = assessment;
                 }
                 repository.delete(currentAssessment);
-                Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                intent.putExtra("id", courseID);
-                startActivity(intent);
                 Toast.makeText(AssessmentDetails.this, currentAssessment.getTitle() + " successfully deleted", Toast.LENGTH_LONG).show();
+                finishActivity();
             }
         });
 
@@ -130,9 +129,8 @@ public class AssessmentDetails extends AppCompatActivity {
                                 sdf.parse(editAssessmentDate.getText().toString()),
                                 courseID);
                         repository.insert(assessment);
-                        Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                        intent.putExtra("id", courseID);
-                        startActivity(intent);
+                        Toast.makeText(AssessmentDetails.this, assessment.getTitle() + " successfully added", Toast.LENGTH_LONG).show();
+                        finishActivity();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -143,9 +141,8 @@ public class AssessmentDetails extends AppCompatActivity {
                                 sdf.parse(editAssessmentDate.getText().toString()),
                                 courseID);
                         repository.update(assessment);
-                        Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                        intent.putExtra("id", courseID);
-                        startActivity(intent);
+                        Toast.makeText(AssessmentDetails.this, currentAssessment.getTitle() + " successfully updated", Toast.LENGTH_LONG).show();
+                        finishActivity();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -153,6 +150,18 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    // BACK Button - finish current activity
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return false;
+    }
+    private void finishActivity(){
+        this.finish();
     }
 
     private void updateLabel() {

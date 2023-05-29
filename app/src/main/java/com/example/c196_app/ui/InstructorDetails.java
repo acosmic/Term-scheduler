@@ -57,10 +57,8 @@ public class InstructorDetails extends AppCompatActivity {
                 if (instructor.getID() == id) currentInstructor = instructor;
             }
             repository.delete(currentInstructor);
-            Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
-            startActivity(intent);
             Toast.makeText(InstructorDetails.this, currentInstructor.getFirstName() +" "+currentInstructor.getLastName()+" successfully deleted", Toast.LENGTH_LONG).show();
-
+            this.finish();
         });
 
         // SAVE Instructor
@@ -74,6 +72,7 @@ public class InstructorDetails extends AppCompatActivity {
                             editInstructorEmail.getText().toString());
                     repository.insert(instructor);
                     Toast.makeText(InstructorDetails.this, instructor.getFirstName()+" "+instructor.getLastName()+" successfully added", Toast.LENGTH_LONG).show();
+                    finishActivity();
                 }
                 else {
                     instructor = new Instructor(id,editInstructorFirstName.getText().toString(),
@@ -81,10 +80,12 @@ public class InstructorDetails extends AppCompatActivity {
                             editInstructorEmail.getText().toString());
                     repository.update(instructor);
                     Toast.makeText(InstructorDetails.this, instructor.getFirstName()+" "+instructor.getLastName()+" successfully updated", Toast.LENGTH_LONG).show();
+                    finishActivity();
                 }
             }
         });
-
-
+    }
+    private void finishActivity(){
+        this.finish();
     }
 }

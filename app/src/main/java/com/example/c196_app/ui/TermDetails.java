@@ -82,6 +82,8 @@ public class TermDetails extends AppCompatActivity {
         }
         courseAdapter.setCourses(filteredCourses);
 
+
+
         //Delete TERM
         Button deleteButton = findViewById(R.id.deleteTerm);
         deleteButton.setOnClickListener(view -> {
@@ -89,12 +91,9 @@ public class TermDetails extends AppCompatActivity {
                 if (term.getID() == id) currentTerm = term;
             }
         repository.delete(currentTerm);
-        Intent intent = new Intent(TermDetails.this, TermList.class);
-        startActivity(intent);
         Toast.makeText(TermDetails.this, currentTerm.getName() +" successfully deleted", Toast.LENGTH_LONG).show();
-
+        this.finish();
         });
-
 
         //Save TERM
         Button saveButton = findViewById(R.id.saveterm);
@@ -106,8 +105,9 @@ public class TermDetails extends AppCompatActivity {
                             sdf.parse(editTermEndDate.getText().toString()));
                     repository.insert(term);
                     Toast.makeText(TermDetails.this, term.getName() +" successfully added", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(TermDetails.this, TermList.class);
+//                    startActivity(intent);
+                    this.finish();
 
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -120,8 +120,7 @@ public class TermDetails extends AppCompatActivity {
                             sdf.parse(editTermEndDate.getText().toString()));
                     repository.update(term);
                     Toast.makeText(TermDetails.this, term.getName() +" successfully updated", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
-                    startActivity(intent);
+                    this.finish();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -198,19 +197,33 @@ public class TermDetails extends AppCompatActivity {
         });
     }
 
-        private void updateLabelStart () {
-            String myFormat = "MM/dd/yy";
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-            editTermStartDate.setText(sdf.format(myCalendarStart.getTime()));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course c : repository.getAllCourses()) {
+            if (c.getTermID() == id) filteredCourses.add(c);
         }
+        courseAdapter.setCourses(filteredCourses);
+    }
 
-        private void updateLabelEnd () {
-            String myFormat = "MM/dd/yy";
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+    private void updateLabelStart () {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-            editTermEndDate.setText(sdf.format(myCalendarEnd.getTime()));
-        }
+        editTermStartDate.setText(sdf.format(myCalendarStart.getTime()));
+    }
+
+    private void updateLabelEnd () {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editTermEndDate.setText(sdf.format(myCalendarEnd.getTime()));
+    }
 
 
 
