@@ -72,8 +72,7 @@ public class TermDetails extends AppCompatActivity {
         editTermName.setText(name);
         String courseLabel = name+" - Courses";
         coursesLabel.setText(courseLabel);
-//        editTermStartDate.setText(startDate);
-//        editTermEndDate.setText(endDate);
+
 
         // Show Courses
         repository = new Repository(getApplication());

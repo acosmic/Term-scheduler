@@ -1,7 +1,13 @@
 package com.example.c196_app.ui;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -183,14 +190,59 @@ public class AssessmentDetails extends AppCompatActivity {
 
     }
 
-    // BACK Button - finish current activity
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }
-        return false;
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_assessmentdetails, menu);
+        return true;
     }
+
+    // MENU ITEMS AND BACK NAVIGATION
+    @SuppressLint("NonConstantResourceId")
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.notifyAssessmentStart:
+                String dateFromScreen=editAssessmentStartDate.getText().toString();
+                String myFormat = "MM/dd/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                Date myStartDate=null;
+                try {
+                    myStartDate=sdf.parse(dateFromScreen);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Long trigger=myStartDate.getTime();
+                Intent intent= new Intent(AssessmentDetails.this, MyReceiver.class);
+                intent.putExtra("key", title + " is starting today!");
+                PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+                return true;
+            case R.id.notifyAssessmentEnd:
+                String dateFromScreenEnd=editAssessmentEndDate.getText().toString();
+                myFormat = "MM/dd/yy";
+                sdf = new SimpleDateFormat(myFormat, Locale.US);
+                Date myEndDate=null;
+                try {
+                    myEndDate=sdf.parse(dateFromScreenEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Long triggerEnd=myEndDate.getTime();
+                Intent intentEnd= new Intent(AssessmentDetails.this, MyReceiver.class);
+                intentEnd.putExtra("key", title + " is ending today!");
+                PendingIntent senderEnd = PendingIntent.getBroadcast(AssessmentDetails.this, ++MainActivity.numAlert, intentEnd, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager alarmManagerEnd = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManagerEnd.set(AlarmManager.RTC_WAKEUP, triggerEnd, senderEnd);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+
     private void finishActivity(){
         this.finish();
     }
