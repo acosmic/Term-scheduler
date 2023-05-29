@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +12,13 @@ import android.widget.Button;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
+import com.example.c196_app.entities.Instructor;
 import com.example.c196_app.entities.Term;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,9 +47,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.addSampleData:
-                Term term=new Term(0,"Spring", null,null);
+                String myFormat = "MM/dd/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                Date termStartDate = new Date();
+                Term term = new Term(0, "Spring", termStartDate, termStartDate);
+                Instructor instructor=new Instructor(0,"Carl", "Sagan", "123-123-1234","CSagan@email.com");
+                Instructor instructor2=new Instructor(0,"Stephen", "Hawking", "321-321-4321","SHawking@email.com");
                 Repository repository=new Repository(getApplication());
                 repository.insert(term);
+                repository.insert(instructor);
+                repository.insert(instructor2);
                 return true;
 
         }

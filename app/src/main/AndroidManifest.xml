@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ui.AssessmentDetails"
-            android:label="Course Details"
+            android:label="Assessment Details"
             android:parentActivityName=".ui.CourseDetails"
             android:exported="false">
             <meta-data

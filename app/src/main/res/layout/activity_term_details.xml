@@ -8,10 +8,11 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="412dp"
+        android:layout_height="229dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Term" />
             </LinearLayout>
-            
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -49,10 +50,10 @@
                     android:id="@+id/editTermStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:focusableInTouchMode="false"
+                    android:inputType="none"
 
-                     />
+                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -68,10 +69,10 @@
                     android:id="@+id/editTermEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:focusableInTouchMode="false"
+                    android:inputType="none"
 
-                     />
+                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -114,13 +115,12 @@
         app:srcCompat="@drawable/ic_baseline_add_box_24" />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@+id/scrollView"
-        app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/courseRecyclerView"
         android:layout_width="409dp"
         android:layout_height="357dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="301dp" />
+        android:layout_marginTop="72dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <TextView
         android:id="@+id/textView4"
@@ -131,4 +131,17 @@
         android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addCourseDetails" />
+
+    <TextView
+        android:id="@+id/coursesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/courseRecyclerView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

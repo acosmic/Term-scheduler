@@ -12,14 +12,20 @@ public class Assessment {
     private int ID;
     private String title;
     private String type;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     private int courseID;
 
-    public Assessment(int ID, String title, String type, Date date, int  courseID) {
+
+
+
+
+    public Assessment(int ID, String title, String type, Date startDate, Date endDate, int  courseID) {
         this.ID = ID;
         this.title = title;
         this.type = type;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.courseID = courseID;
     }
 
@@ -49,16 +55,24 @@ public class Assessment {
         this.type = type;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
     }
 
     public void setCourseID(int courseID) {
         this.courseID = courseID;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public int getCourseID(){

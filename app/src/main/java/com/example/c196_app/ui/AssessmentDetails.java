@@ -1,7 +1,6 @@
 package com.example.c196_app.ui;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +25,19 @@ import java.util.Locale;
 
 public class AssessmentDetails extends AppCompatActivity {
     EditText editAssessmentName;
-    EditText editAssessmentDate;
+    EditText editAssessmentStartDate;
+    EditText editAssessmentEndDate;
     Spinner spinnerType;
 
-    DatePickerDialog.OnDateSetListener date;
-    final Calendar myCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener startDate;
+    final Calendar myCalendarStart = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener endDate;
+    final Calendar myCalendarEnd = Calendar.getInstance();
 
     int id;
     String title;
-    String assessmentDate;
+    String assessmentStartDate;
+    String assessmentEndDate;
     String type;
     int courseID;
 
@@ -47,18 +50,21 @@ public class AssessmentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_details);
         editAssessmentName = findViewById(R.id.editAssessmentName);
-        editAssessmentDate = findViewById(R.id.editAssessmentDate);
+        editAssessmentStartDate = findViewById(R.id.editAssessmentStartDate);
+        editAssessmentEndDate = findViewById(R.id.editAssessmentEndDate);
         spinnerType = findViewById(R.id.editAssessmentType);
         id = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
-        assessmentDate = getIntent().getStringExtra("date");
+        assessmentStartDate = getIntent().getStringExtra("startDate");
+        assessmentEndDate =getIntent().getStringExtra("endDate");
         type = getIntent().getStringExtra("type");
         courseID = getIntent().getIntExtra("courseID", -1);
 
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         editAssessmentName.setText(title);
-        editAssessmentDate.setText(assessmentDate);
+        editAssessmentStartDate.setText(assessmentStartDate);
+        editAssessmentEndDate.setText(assessmentEndDate);
 
         repository = new Repository(getApplication());
 
@@ -80,27 +86,50 @@ public class AssessmentDetails extends AppCompatActivity {
         }
 
 
-        // date
-        editAssessmentDate.setOnClickListener(new View.OnClickListener() {
+        // START DATE
+        editAssessmentStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String info = editAssessmentDate.getText().toString();
+                String info = editAssessmentStartDate.getText().toString();
                 if (info.equals("")) info = "02/10/23";
                 try {
-                    myCalendar.setTime(sdf.parse(info));
+                    myCalendarStart.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentDetails.this, date, myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(AssessmentDetails.this, startDate, myCalendarStart.get(Calendar.YEAR),
+                        myCalendarStart.get(Calendar.MONTH), myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        date = (view, year, monthOfYear, dayOfMonth) -> {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        startDate = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendarStart.set(Calendar.YEAR, year);
+            myCalendarStart.set(Calendar.MONTH, monthOfYear);
+            myCalendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            updateLabel();
+            updateStartLabel();
+        };
+
+        // END DATE
+        editAssessmentEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String info = editAssessmentEndDate.getText().toString();
+                if (info.equals("")) info = "02/10/23";
+                try {
+                    myCalendarEnd.setTime(sdf.parse(info));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                new DatePickerDialog(AssessmentDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
+                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        endDate = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendarEnd.set(Calendar.YEAR, year);
+            myCalendarEnd.set(Calendar.MONTH, monthOfYear);
+            myCalendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            updateEndLabel();
         };
 
         // DELETE ASSESSMENT
@@ -126,7 +155,8 @@ public class AssessmentDetails extends AppCompatActivity {
                     try {
                         assessment = new Assessment(0,editAssessmentName.getText().toString(),
                                 spinnerType.getSelectedItem().toString(),
-                                sdf.parse(editAssessmentDate.getText().toString()),
+                                sdf.parse(editAssessmentStartDate.getText().toString()),
+                                sdf.parse(editAssessmentEndDate.getText().toString()),
                                 courseID);
                         repository.insert(assessment);
                         Toast.makeText(AssessmentDetails.this, assessment.getTitle() + " successfully added", Toast.LENGTH_LONG).show();
@@ -138,10 +168,11 @@ public class AssessmentDetails extends AppCompatActivity {
                     try {
                         assessment = new Assessment(id,editAssessmentName.getText().toString(),
                                 spinnerType.getSelectedItem().toString(),
-                                sdf.parse(editAssessmentDate.getText().toString()),
+                                sdf.parse(editAssessmentStartDate.getText().toString()),
+                                sdf.parse(editAssessmentEndDate.getText().toString()),
                                 courseID);
                         repository.update(assessment);
-                        Toast.makeText(AssessmentDetails.this, currentAssessment.getTitle() + " successfully updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AssessmentDetails.this, assessment.getTitle() + " successfully updated", Toast.LENGTH_LONG).show();
                         finishActivity();
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -164,11 +195,17 @@ public class AssessmentDetails extends AppCompatActivity {
         this.finish();
     }
 
-    private void updateLabel() {
+    private void updateStartLabel() {
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        editAssessmentDate.setText(sdf.format(myCalendar.getTime()));
+        editAssessmentStartDate.setText(sdf.format(myCalendarStart.getTime()));
+    }
+    private void updateEndLabel() {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editAssessmentEndDate.setText(sdf.format(myCalendarEnd.getTime()));
     }
 
 }

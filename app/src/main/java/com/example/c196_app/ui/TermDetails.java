@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.c196_app.Adapter.CourseAdapter;
@@ -32,6 +33,7 @@ public class TermDetails extends AppCompatActivity {
     EditText editTermName;
     EditText editTermStartDate;
     EditText editTermEndDate;
+    TextView coursesLabel;
 
     DatePickerDialog.OnDateSetListener startDate;
     DatePickerDialog.OnDateSetListener endDate;
@@ -55,6 +57,7 @@ public class TermDetails extends AppCompatActivity {
         editTermName = findViewById(R.id.editTermName);
         editTermStartDate = findViewById(R.id.editTermStartDate);
         editTermEndDate = findViewById(R.id.editTermEndDate);
+        coursesLabel = findViewById(R.id.coursesLabel);
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
 
@@ -67,6 +70,8 @@ public class TermDetails extends AppCompatActivity {
         editTermStartDate.setText(termStartDate);
         editTermEndDate.setText(termEndDate);
         editTermName.setText(name);
+        String courseLabel = name+" - Courses";
+        coursesLabel.setText(courseLabel);
 //        editTermStartDate.setText(startDate);
 //        editTermEndDate.setText(endDate);
 

@@ -37,14 +37,24 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     intent.putExtra("type", current.getType());
                     intent.putExtra("courseID", current.getCourseID());
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
-                    String assessmentDate;
-                    if (current.getDate() == null){
-                        assessmentDate = "";
+                    String assessmentStartDate;
+                    String assessmentEndDate;
+                    // START DATE
+                    if (current.getStartDate() == null){
+                        assessmentStartDate = "";
                     }
                     else {
-                        assessmentDate = sdf.format(current.getDate());
+                        assessmentStartDate = sdf.format(current.getStartDate());
                     }
-                    intent.putExtra("date", assessmentDate);
+                    intent.putExtra("startDate", assessmentStartDate);
+                    // END DATE
+                    if (current.getEndDate() == null){
+                        assessmentEndDate = "";
+                    }
+                    else {
+                        assessmentEndDate = sdf.format(current.getEndDate());
+                    }
+                    intent.putExtra("endDate", assessmentEndDate);
                     context.startActivity(intent);
                 }
             });
