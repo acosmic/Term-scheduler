@@ -94,9 +94,15 @@ public class TermDetails extends AppCompatActivity {
             for (Term term : repository.getAllTerms()){
                 if (term.getID() == id) currentTerm = term;
             }
-        repository.delete(currentTerm);
-        Toast.makeText(TermDetails.this, currentTerm.getName() +" successfully deleted", Toast.LENGTH_LONG).show();
-        this.finish();
+
+            if (filteredCourses.size() == 0){
+                repository.delete(currentTerm);
+                Toast.makeText(TermDetails.this, currentTerm.getName() +" successfully deleted", Toast.LENGTH_LONG).show();
+                this.finish();
+            } else {
+                Toast.makeText(TermDetails.this, currentTerm.getName() +" can't be deleted until all associated courses have been deleted.", Toast.LENGTH_LONG).show();
+            }
+
         });
 
         //Save TERM
