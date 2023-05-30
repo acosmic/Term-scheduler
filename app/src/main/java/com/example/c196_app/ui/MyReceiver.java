@@ -24,7 +24,7 @@ public class MyReceiver extends BroadcastReceiver {
         Notification n = new NotificationCompat.Builder(context, channel_id)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentText(intent.getStringExtra("key"))
-                .setContentTitle("Assessment Alert").build();
+                .setContentTitle("Term Planner Alert").build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID++, n);
         // TODO: This method is called when the BroadcastReceiver is receiving

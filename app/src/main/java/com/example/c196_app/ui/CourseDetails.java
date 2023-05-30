@@ -322,13 +322,28 @@ public class CourseDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Long trigger=myStartDate.getTime();
-//                Intent intent= new Intent(CourseDetails.this, MyReceiver.class);
-//                intent.putExtra("key", dateFromScreen + " should trigger");
-//                PendingIntent sender = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
-//                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
-//                return true;
+                Intent intent= new Intent(CourseDetails.this, MyReceiver.class);
+                intent.putExtra("key", title + " is starting today");
+                PendingIntent sender = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+                return true;
             case R.id.notifyCourseEnd:
+                String dateFromScreenEnd=editCourseEndDate.getText().toString();
+                myFormat = "MM/dd/yy";
+                sdf = new SimpleDateFormat(myFormat, Locale.US);
+                Date myEndDate=null;
+                try {
+                    myEndDate=sdf.parse(dateFromScreenEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Long triggerEnd=myEndDate.getTime();
+                Intent intentEnd= new Intent(CourseDetails.this, MyReceiver.class);
+                intentEnd.putExtra("key", title + " is ending today!");
+                PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intentEnd, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager alarmManagerEnd = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManagerEnd.set(AlarmManager.RTC_WAKEUP, triggerEnd, senderEnd);
                 return true;
         }
         return super.onOptionsItemSelected(item);
