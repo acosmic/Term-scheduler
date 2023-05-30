@@ -153,8 +153,6 @@ public class CourseDetails extends AppCompatActivity {
             if (instructor.getID() == instructorID) currentInstructor = instructor;
 
         }
-        instructorPhone.setText(currentInstructor.getPhoneNumber());
-        instructorEmail.setText(currentInstructor.getEmail());
 
         // Instructor Spinner menu
         instructorList = repository.getAllInstructors();
@@ -174,6 +172,8 @@ public class CourseDetails extends AppCompatActivity {
         if (instructorID > 0) {
             instructorFullName = currentInstructor.getFirstName() + " " + currentInstructor.getLastName();
             spinnerInstructor.setSelection(instructorArrayAdapter.getPosition(instructorFullName));
+            instructorPhone.setText(currentInstructor.getPhoneNumber());
+            instructorEmail.setText(currentInstructor.getEmail());
         }
 
         spinnerInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -182,14 +182,8 @@ public class CourseDetails extends AppCompatActivity {
                 instructorFullName = spinnerInstructor.getSelectedItem().toString();
                 for (Instructor instructor : repository.getAllInstructors()){
                     if ((instructor.getFirstName() + " " + instructor.getLastName()).equals(instructorFullName)){
-                        if (instructorID > 0) {
-                            instructorPhone.setText(instructor.getPhoneNumber());
-                            instructorEmail.setText(instructor.getEmail());
-                        }
-                        else {
-                            instructorPhone.setText("");
-                            instructorEmail.setText("");
-                        }
+                        instructorPhone.setText(instructor.getPhoneNumber());
+                        instructorEmail.setText(instructor.getEmail());
                     }
                 }
             }
