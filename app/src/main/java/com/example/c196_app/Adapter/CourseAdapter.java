@@ -37,6 +37,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     intent.putExtra("status", current.getStatus());
                     intent.putExtra("termID", current.getTermID());
                     intent.putExtra("instructorID", current.getInstructorID());
+                    intent.putExtra("notes", current.getNotes());
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
                     String startDateString;
                     String endDateString;

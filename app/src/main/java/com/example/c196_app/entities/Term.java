@@ -54,4 +54,14 @@ public class Term {
     public void setEndDate(Date EndDate) {
         this.endDate = EndDate;
     }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

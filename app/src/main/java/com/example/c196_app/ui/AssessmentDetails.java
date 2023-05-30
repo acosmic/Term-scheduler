@@ -97,8 +97,9 @@ public class AssessmentDetails extends AppCompatActivity {
         editAssessmentStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Date today = new Date();
                 String info = editAssessmentStartDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = today.toString();
                 try {
                     myCalendarStart.setTime(sdf.parse(info));
                 } catch (ParseException e) {
@@ -116,19 +117,23 @@ public class AssessmentDetails extends AppCompatActivity {
             updateStartLabel();
         };
 
+
         // END DATE
         editAssessmentEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Date today = new Date();
                 String info = editAssessmentEndDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = today.toString();
                 try {
                     myCalendarEnd.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
-                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog endDPD = new DatePickerDialog(AssessmentDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
+                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH));
+                endDPD.getDatePicker().setMinDate(myCalendarStart.getTimeInMillis());
+                endDPD.show();
             }
         });
         endDate = (view, year, monthOfYear, dayOfMonth) -> {

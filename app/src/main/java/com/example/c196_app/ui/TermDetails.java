@@ -137,15 +137,15 @@ public class TermDetails extends AppCompatActivity {
             }
         });
 
+        // START DATE
         editTermStartDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Date date;
-                //get value from other screen,but I'm going to hard code it right now
+
+                Date date = new Date();
                 String info = editTermStartDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = date.toString();
                 try {
                     myCalendarStart.setTime(sdf.parse(info));
                 } catch (ParseException e) {
@@ -156,7 +156,7 @@ public class TermDetails extends AppCompatActivity {
             }
         });
         startDate = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
+
 
             myCalendarStart.set(Calendar.YEAR, year);
             myCalendarStart.set(Calendar.MONTH, monthOfYear);
@@ -166,27 +166,29 @@ public class TermDetails extends AppCompatActivity {
             updateLabelStart();
         };
 
+        // END DATE
         editTermEndDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Date date;
-                //get value from other screen,but I'm going to hard code it right now
+
+                Date date = new Date();
                 String info = editTermEndDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = date.toString();
                 try {
                     myCalendarEnd.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(TermDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
-                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog endDPD = new DatePickerDialog(TermDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
+                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH));
+                endDPD.getDatePicker().setMinDate(myCalendarStart.getTimeInMillis());
+                endDPD.show();
             }
         });
 
         endDate = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
+
 
             myCalendarEnd.set(Calendar.YEAR, year);
             myCalendarEnd.set(Calendar.MONTH, monthOfYear);

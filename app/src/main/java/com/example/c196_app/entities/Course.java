@@ -13,17 +13,20 @@ public class Course {
     private Date startDate;
     private Date endDate;
     private String status; // (in progress, complete, dropped, planned to take)
+    private String notes;
     private int termID;
     private int instructorID;
 
 
 
-    public Course (int ID, String title, Date startDate, Date endDate, String status, int termID, int instructorID) {
+
+    public Course (int ID, String title, Date startDate, Date endDate, String status, String notes, int termID, int instructorID) {
         this.ID = ID;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.notes = notes;
         this.termID = termID;
         this.instructorID = instructorID;
     }
@@ -70,6 +73,14 @@ public class Course {
         this.status = status;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     public int getTermID() {
         return termID;
     }
@@ -85,4 +96,6 @@ public class Course {
     public void setInstructorID(int instructorID) {
         this.instructorID = instructorID;
     }
+
+
 }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.example.c196_app.R;
 import com.example.c196_app.entities.Assessment;
 import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
+import com.example.c196_app.entities.Term;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
@@ -37,16 +39,18 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-
+import java.util.Objects;
 
 
 public class CourseDetails extends AppCompatActivity {
     EditText editCourseName;
     EditText editCourseStartDate;
     EditText editCourseEndDate;
-    Spinner spinnerStatus;
     EditText editNote;
+    TextView instructorPhone;
+    TextView instructorEmail;
+    Spinner spinnerStatus;
+//    Spinner noteSpinner;
     Spinner spinnerInstructor;
     TextView assessmentsLabel;
 
@@ -61,15 +65,18 @@ public class CourseDetails extends AppCompatActivity {
     String courseStartDate;
     String courseEndDate;
     String status;
+    String notes;
     int termID;
     int instructorID;
     List<Instructor> instructorList;
     Instructor currentInstructor;
     String instructorFullName;
 
+
     Course course;
     Course currentCourse;
     Repository repository;
+    DatePickerDialog endDPD;
 
 
 
@@ -80,14 +87,22 @@ public class CourseDetails extends AppCompatActivity {
         editCourseName = findViewById(R.id.editCourseName);
         editCourseStartDate = findViewById(R.id.editCourseStartDate);
         editCourseEndDate = findViewById(R.id.editCourseEndDate);
+        editNote = findViewById(R.id.editCourseNote);
+//        noteSpinner = findViewById(R.id.noteSpinner);
         spinnerStatus = findViewById(R.id.editCourseStatus);
         spinnerInstructor = findViewById(R.id.spinnerInstructor);
         assessmentsLabel = findViewById(R.id.assessmentsLabel);
+        instructorPhone = findViewById(R.id.instructorPhone);
+        instructorEmail = findViewById(R.id.instructorEmail);
         id = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
         status = getIntent().getStringExtra("status");
+        notes = getIntent().getStringExtra("notes");
         termID = getIntent().getIntExtra("termID", -1);
         instructorID = getIntent().getIntExtra("instructorID", -1);
+
+
+
 
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -96,6 +111,7 @@ public class CourseDetails extends AppCompatActivity {
         editCourseStartDate.setText(courseStartDate);
         editCourseEndDate.setText(courseEndDate);
         editCourseName.setText(title);
+        editNote.setText(notes);
         String aLabel = title+ " - Assessments";
         assessmentsLabel.setText(aLabel);
 
@@ -137,6 +153,8 @@ public class CourseDetails extends AppCompatActivity {
             if (instructor.getID() == instructorID) currentInstructor = instructor;
 
         }
+        instructorPhone.setText(currentInstructor.getPhoneNumber());
+        instructorEmail.setText(currentInstructor.getEmail());
 
         // Instructor Spinner menu
         instructorList = repository.getAllInstructors();
@@ -158,7 +176,44 @@ public class CourseDetails extends AppCompatActivity {
             spinnerInstructor.setSelection(instructorArrayAdapter.getPosition(instructorFullName));
         }
 
+        spinnerInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                instructorFullName = spinnerInstructor.getSelectedItem().toString();
+                for (Instructor instructor : repository.getAllInstructors()){
+                    if ((instructor.getFirstName() + " " + instructor.getLastName()).equals(instructorFullName)){
+                        if (instructorID > 0) {
+                            instructorPhone.setText(instructor.getPhoneNumber());
+                            instructorEmail.setText(instructor.getEmail());
+                        }
+                        else {
+                            instructorPhone.setText("");
+                            instructorEmail.setText("");
+                        }
+                    }
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+//        // NOTE SPINNER
+//        ArrayAdapter<Term> termArrayAdapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,repository.getAllTerms());
+//        noteSpinner.setAdapter(termArrayAdapter);
+//        noteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                editNote.setText(termArrayAdapter.getItem(i).toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                editNote.setText("Nothing Selected");
+//            }
+//        });
 
 
         //Delete COURSE
@@ -182,12 +237,13 @@ public class CourseDetails extends AppCompatActivity {
                     if ((instructor.getFirstName() + " " + instructor.getLastName()).equals(instructorFullName)) instructorID = instructor.getID();
                 }
                 status = spinnerStatus.getSelectedItem().toString();
+
                 if(id == -1){
                     try {
                         course = new Course(0, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                status,termID, instructorID);
+                                status,editNote.getText().toString(),termID, instructorID);
                         repository.insert(course);
                         Toast.makeText(CourseDetails.this, course.getTitle() +" successfully added", Toast.LENGTH_LONG).show();
                         finishActivity();
@@ -200,7 +256,7 @@ public class CourseDetails extends AppCompatActivity {
                         course = new Course(id, editCourseName.getText().toString(),
                                 sdf.parse(editCourseStartDate.getText().toString()),
                                 sdf.parse(editCourseEndDate.getText().toString()),
-                                status,termID, instructorID);
+                                status,editNote.getText().toString(),termID, instructorID);
                         repository.update(course);
                         Toast.makeText(CourseDetails.this, course.getTitle() +" successfully updated", Toast.LENGTH_LONG).show();
                         finishActivity();
@@ -222,14 +278,14 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
+        // START DATE
         editCourseStartDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Date date;
-                //get value from other screen,but I'm going to hard code it right now
+                Date date = new Date();
                 String info = editCourseStartDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = date.toString();
                 try {
                     myCalendarStart.setTime(sdf.parse(info));
                 } catch (ParseException e) {
@@ -248,21 +304,23 @@ public class CourseDetails extends AppCompatActivity {
             updateLabelStart();
         };
 
+        //END DATE
         editCourseEndDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Date date;
-                //get value from other screen,but I'm going to hard code it right now
+                Date date = new Date();
                 String info = editCourseEndDate.getText().toString();
-                if (info.equals("")) info = "02/10/23";
+                if (info.equals("")) info = date.toString();
                 try {
                     myCalendarEnd.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(CourseDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
-                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+                endDPD = new DatePickerDialog(CourseDetails.this, endDate, myCalendarEnd.get(Calendar.YEAR),
+                        myCalendarEnd.get(Calendar.MONTH), myCalendarEnd.get(Calendar.DAY_OF_MONTH));
+                endDPD.getDatePicker().setMinDate(myCalendarStart.getTimeInMillis());
+                endDPD.show();
             }
         });
 
