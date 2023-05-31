@@ -95,7 +95,12 @@ public class TermDetails extends AppCompatActivity {
                 if (term.getID() == id) currentTerm = term;
             }
 
-            if (filteredCourses.size() == 0){
+            List<Course> checkCourses = new ArrayList<>();
+            for (Course c : repository.getAllCourses()) {
+                if (c.getTermID() == id) checkCourses.add(c);
+            }
+
+            if (checkCourses.size() == 0){
                 repository.delete(currentTerm);
                 Toast.makeText(TermDetails.this, currentTerm.getName() +" successfully deleted", Toast.LENGTH_LONG).show();
                 this.finish();

@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AssessmentDetails">
+    tools:context=".ui.TermDetails">
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="398dp"
-        android:layout_height="501dp"
+        android:layout_width="311dp"
+        android:layout_height="230dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
@@ -29,30 +29,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Assessment Name" />
+                    android:text="Term Name" />
 
                 <EditText
-                    android:id="@+id/editAssessmentName"
+                    android:id="@+id/editTermName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Assessment" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Type" />
-
-                <Spinner
-                    android:id="@+id/editAssessmentType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Status" />
+                    android:hint="Term" />
             </LinearLayout>
 
 
@@ -66,7 +49,7 @@
                     android:text="Start Date" />
 
                 <EditText
-                    android:id="@+id/editAssessmentStartDate"
+                    android:id="@+id/editTermStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="false"
@@ -85,7 +68,7 @@
                     android:text="End Date" />
 
                 <EditText
-                    android:id="@+id/editAssessmentEndDate"
+                    android:id="@+id/editTermEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="false"
@@ -94,32 +77,71 @@
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saveAssessment"
+                    android:id="@+id/saveterm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save" />
-
-                <Button
-                    android:id="@+id/deleteAssessment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="200dp"
-                    android:backgroundTint="#FF0000"
-                    android:text="Delete"
-                    tools:visibility="visible" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/deleteTerm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FF0000"
+                    android:text="Delete" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </LinearLayout>
     </ScrollView>
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addCourseDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_box_24" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/courseRecyclerView"
+        android:layout_width="392dp"
+        android:layout_height="231dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coursesLabel" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:text="Add Course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addCourseDetails" />
+
+    <TextView
+        android:id="@+id/coursesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

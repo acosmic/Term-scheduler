@@ -8,8 +8,8 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="400dp"
-        android:layout_height="297dp"
+        android:layout_width="373dp"
+        android:layout_height="292dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
@@ -132,7 +132,7 @@
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginLeft="10dp"
                     android:backgroundTint="#FF0000"
                     android:text="Delete"
                     tools:visibility="visible" />
@@ -177,12 +177,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/assessmentRecyclerView"
-        android:layout_width="405dp"
-        android:layout_height="305dp"
+        android:layout_width="331dp"
+        android:layout_height="261dp"
         android:layout_marginTop="60dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addAssessment"
@@ -209,12 +209,15 @@
         android:id="@+id/assessmentsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="10dp"
         android:text="Assessments "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/assessmentRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+        app:layout_constraintRight_toRightOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
