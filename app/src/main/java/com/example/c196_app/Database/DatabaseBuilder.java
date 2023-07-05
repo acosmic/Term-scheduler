@@ -11,18 +11,21 @@ import com.example.c196_app.dao.AssessmentDAO;
 import com.example.c196_app.dao.CourseDAO;
 import com.example.c196_app.dao.InstructorDAO;
 import com.example.c196_app.dao.TermDAO;
+import com.example.c196_app.dao.UserDAO;
 import com.example.c196_app.entities.Assessment;
 import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
 import com.example.c196_app.entities.Term;
+import com.example.c196_app.entities.User;
 
-@Database(entities = {Term.class, Course.class, Assessment.class, Instructor.class}, version=4, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class, Instructor.class, User.class}, version=5, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class DatabaseBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();
     public abstract CourseDAO courseDAO();
     public abstract AssessmentDAO assessmentDAO();
     public abstract InstructorDAO instructorDAO();
+    public abstract UserDAO userDAO();
 
     private static volatile DatabaseBuilder INSTANCE;
 

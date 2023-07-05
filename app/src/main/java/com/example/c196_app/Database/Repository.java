@@ -6,10 +6,12 @@ import com.example.c196_app.dao.AssessmentDAO;
 import com.example.c196_app.dao.CourseDAO;
 import com.example.c196_app.dao.InstructorDAO;
 import com.example.c196_app.dao.TermDAO;
+import com.example.c196_app.dao.UserDAO;
 import com.example.c196_app.entities.Assessment;
 import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
 import com.example.c196_app.entities.Term;
+import com.example.c196_app.entities.User;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -20,11 +22,13 @@ public class Repository {
     private CourseDAO mCourseDAO;
     private InstructorDAO mInstructorDAO;
     private AssessmentDAO mAssessmentDAO;
+    private UserDAO mUserDAO;
 
     private List<Term> mAllTerms;
     private List<Course> mAllCourses;
     private List<Instructor> mAllInstructors;
     private List<Assessment> mAllAssessments;
+    private List<User> mAllUsers;
 
     private static int NUMBER_OF_THREADS=4;
     static final ExecutorService databaseExecutor= Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -35,6 +39,7 @@ public class Repository {
         mCourseDAO=db.courseDAO();
         mInstructorDAO=db.instructorDAO();
         mAssessmentDAO=db.assessmentDAO();
+        mUserDAO=db.userDAO();
     }
 
     // TERMS - Dao Methods
@@ -82,7 +87,7 @@ public class Repository {
             }
         });
     }
-
+    // COURSES - Dao Methods
     public List<Course>getAllCourses(){
         databaseExecutor.execute(()->{
             mAllCourses=mCourseDAO.getAllCourses();
@@ -127,6 +132,8 @@ public class Repository {
             }
         });
     }
+
+    // INSTRUCTORS - Dao Methods
     public List<Instructor>getAllInstructors(){
         databaseExecutor.execute(()->{
             mAllInstructors=mInstructorDAO.getAllInstructors();
@@ -172,6 +179,7 @@ public class Repository {
         });
     }
 
+    // ASSESSMENTS - Dao Methods
     public List<Assessment>getAllAssessments(){
         databaseExecutor.execute(()->{
             mAllAssessments=mAssessmentDAO.getAllAssessments();
@@ -209,6 +217,52 @@ public class Repository {
     public void delete(Assessment assessment){
         databaseExecutor.execute(() ->{
             mAssessmentDAO.delete(assessment);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    // USERS - Dao Methods
+    public List<User>getAllUsers(){
+        databaseExecutor.execute(()->{
+            mAllUsers=mUserDAO.getAllUsers();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAllUsers;
+    }
+
+    public void insert(User user){
+        databaseExecutor.execute(() ->{
+            mUserDAO.insert(user);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void update(User user){
+        databaseExecutor.execute(() ->{
+            mUserDAO.update(user);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void delete(User user){
+        databaseExecutor.execute(() ->{
+            mUserDAO.delete(user);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
