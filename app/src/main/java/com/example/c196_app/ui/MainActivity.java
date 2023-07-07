@@ -53,38 +53,24 @@ public class MainActivity extends AppCompatActivity {
             passWord = passWordField.getText().toString();
             userList = repository.getAllUsers();
             userExists = false;
-            for (User user : userList) {
-                if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
-                    userExists = true;
-                    break;
+
+            if (userList.isEmpty()){
+                Toast.makeText(MainActivity.this,  "No users exist, please create an account.", Toast.LENGTH_LONG).show();
+            } else {
+                for (User user : userList) {
+                    if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
+                        userExists = true;
+                        break;
+                    }
+                }
+                if (userExists) {
+                    Toast.makeText(MainActivity.this, userName +" authenticated successfully", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(MainActivity.this, TermList.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Invalid credentials!", Toast.LENGTH_LONG).show();
                 }
             }
-            if (userExists) {
-                Toast.makeText(MainActivity.this, userName +" authenticated successfully", Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(MainActivity.this, TermList.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(MainActivity.this, "Invalid credentials!", Toast.LENGTH_LONG).show();
-            }
-
-
-
-//            if (userList.isEmpty()) {
-//                Toast.makeText(MainActivity.this,  "No users exist, please create an account.", Toast.LENGTH_LONG).show();
-//                    }
-//            else {
-//                for (User user : userList){
-//
-//                    if ((userName == user.getUserName()) && passWord == user.getPassWord()){
-//                        Toast.makeText(MainActivity.this, userName +" authenticated successfully", Toast.LENGTH_LONG).show();
-//                        Intent intent=new Intent(MainActivity.this, TermList.class);
-//                        startActivity(intent);
-//                    }
-//                    else {
-//                        Toast.makeText(MainActivity.this, "Invalid credentials!", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            }
         });
     }
     public boolean onCreateOptionsMenu(Menu menu){
