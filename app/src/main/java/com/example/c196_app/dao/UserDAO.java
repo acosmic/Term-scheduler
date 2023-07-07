@@ -20,7 +20,7 @@ public interface UserDAO {
         void update(User user);
         @Delete
         void delete(User user);
-        @Query("SELECT * FROM ASSESSMENTS ORDER BY ID ASC")
+        @Query("SELECT * FROM USERS ORDER BY ID ASC")
         List<User> getAllUsers();
     }
 
