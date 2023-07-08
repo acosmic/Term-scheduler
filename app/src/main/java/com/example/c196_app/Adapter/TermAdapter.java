@@ -22,6 +22,11 @@ import java.util.Locale;
 
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
+
+//    public void setFilteredList (List<Term> filteredList){
+//        this.mTerms = filteredList;
+//        notifyDataSetChanged();
+//    }
     class TermViewHolder extends RecyclerView.ViewHolder {
         private final TextView termItemView;
         private TermViewHolder(View itemview){
