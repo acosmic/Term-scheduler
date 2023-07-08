@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             userExists = false;
 
             if (userList.isEmpty()){
-                Toast.makeText(MainActivity.this,  "No users exist, please create an account.", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,  "No users exist, please add sample data and sign in with UN:admin PW:admin.", Toast.LENGTH_LONG).show();
             } else {
                 for (User user : userList) {
                     if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 repository.insert(term);
                 repository.insert(instructor);
                 repository.insert(instructor2);
+                Toast.makeText(MainActivity.this, "Sample data added!", Toast.LENGTH_LONG).show();
                 return true;
 
         }
