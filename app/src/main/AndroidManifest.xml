@@ -54,6 +54,15 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.CreateAccount"
+            android:exported="false"
+            android:label="Create Account"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.InstructorList"
             android:exported="false"
             android:label="Instructor List"

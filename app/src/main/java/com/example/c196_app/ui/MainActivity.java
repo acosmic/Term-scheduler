@@ -41,13 +41,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button signIn=findViewById(R.id.buttonEnter);
+        Button createAccount=findViewById(R.id.createAccount);
         userNameField = findViewById(R.id.editTextUsername);
         passWordField = findViewById(R.id.editTextPassword);
         repository = new Repository(getApplication());
 
+        // CREATE ACCOUNT
+        createAccount.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this, CreateAccount.class);
+            startActivity(intent);
+        });
 
-
-
+        // SIGN IN
         signIn.setOnClickListener(view -> {
             userName = userNameField.getText().toString();
             passWord = passWordField.getText().toString();
