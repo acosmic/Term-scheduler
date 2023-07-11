@@ -89,12 +89,18 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 Date termStartDate = new Date();
                 Term term = new Term(0, "Spring", termStartDate, termStartDate);
+                Term term2 = new Term(0, "Summer", termStartDate, termStartDate);
+                Term term3 = new Term(0, "Fall", termStartDate, termStartDate);
+                Term term4 = new Term(0, "Winter", termStartDate, termStartDate);
                 Instructor instructor=new Instructor(0,"Carl", "Sagan", "123-123-1234","CSagan@email.com");
                 Instructor instructor2=new Instructor(0,"Stephen", "Hawking", "321-321-4321","SHawking@email.com");
                 User user = new User(0,"admin", "admin");
                 Repository repository=new Repository(getApplication());
                 repository.insert(user);
                 repository.insert(term);
+                repository.insert(term2);
+                repository.insert(term3);
+                repository.insert(term4);
                 repository.insert(instructor);
                 repository.insert(instructor2);
                 Toast.makeText(MainActivity.this, "Sample data added!", Toast.LENGTH_LONG).show();
