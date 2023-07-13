@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.example.c196_app.entities.Term;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -99,5 +102,58 @@ public class TermList extends AppCompatActivity {
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         termAdapter.setTerms(allTerms);
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_termlist_reports, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.report:
+                StringBuilder courseReport = new StringBuilder();
+                String finalReportString;
+                String courseTerm = "";
+                String courseTitle;
+                String courseStatus;
+                int courseTermID;
+                //Format Course Report: Term - Course Title - Status
+                for (Course c : repository.getAllCourses()){
+                    courseTermID = c.getTermID();
+                    courseTitle = c.getTitle();
+                    courseStatus = c.getStatus();
+
+                    for (Term t : repository.getAllTerms()){
+                        if (courseTermID == t.getID()){
+                            courseTerm = t.getName();
+                        }
+                    }
+                    courseReport
+                            .append(courseTerm)
+                            .append(" - ")
+                            .append(courseTitle)
+                            .append(" - ")
+                            .append(courseStatus)
+                            .append("\n");
+                }
+                Date timeStamp = new Date();
+                finalReportString = "Status Report - Courses: " + "\n\n"
+                        +courseReport.toString()
+                        +"\n\nGenerated at: "+timeStamp;
+
+
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, finalReportString);
+                sendIntent.putExtra(Intent.EXTRA_TITLE, "Course Report");
+                sendIntent.setType("text/plain");
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
