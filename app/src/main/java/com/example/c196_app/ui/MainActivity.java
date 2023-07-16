@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.c196_app.Database.Repository;
 import com.example.c196_app.R;
+import com.example.c196_app.entities.Course;
 import com.example.c196_app.entities.Instructor;
 import com.example.c196_app.entities.Term;
 import com.example.c196_app.entities.User;
@@ -92,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 Term term2 = new Term(0, "Summer", termStartDate, termStartDate);
                 Term term3 = new Term(0, "Fall", termStartDate, termStartDate);
                 Term term4 = new Term(0, "Winter", termStartDate, termStartDate);
+                Course course = new Course(0, "Biology", termStartDate, termStartDate, "Plan To Take", "", 1,1);
+                Course course2 = new Course(0, "Calculus", termStartDate, termStartDate, "In Progress", "", 2,2);
+                Course course3 = new Course(0, "Astronomy", termStartDate, termStartDate, "Plan To Take", "", 3,1);
+                Course course4 = new Course(0, "Physics", termStartDate, termStartDate, "Plan To Take", "", 4,2);
                 Instructor instructor=new Instructor(0,"Carl", "Sagan", "123-123-1234","CSagan@email.com");
                 Instructor instructor2=new Instructor(0,"Stephen", "Hawking", "321-321-4321","SHawking@email.com");
                 User user = new User(0,"admin", "admin");
@@ -103,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 repository.insert(term4);
                 repository.insert(instructor);
                 repository.insert(instructor2);
+                repository.insert(course);
+                repository.insert(course2);
+                repository.insert(course3);
+                repository.insert(course4);
                 Toast.makeText(MainActivity.this, "Sample data added!", Toast.LENGTH_LONG).show();
                 return true;
 
