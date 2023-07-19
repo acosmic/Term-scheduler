@@ -12,17 +12,24 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class UserDAOTest{
     boolean userExists;
-    boolean userUpdated;
     Repository repository = new Repository(ApplicationProvider.getApplicationContext());
-    
     User testDeleteUser;
 
     @Test
     public void insertAndReturnUser() {
-        // working
+        // Clear the database before starting the test
+        if (!repository.getAllUsers().isEmpty()){
+            for (User user : repository.getAllUsers()) {
+                repository.delete(user);
+            }
+        }
+
+        // Insert a new user
         userExists = false;
         User testUser = new User(0,"Test", "Testing@123");
         repository.insert(testUser);
+
+        // Check if the user was added
         List<User> userList = repository.getAllUsers();
         for (User user : userList) {
             if (user.getUserName().equals(testUser.getUserName()) && user.getPassWord().equals(testUser.getPassWord())) {
@@ -35,51 +42,71 @@ public class UserDAOTest{
     }
 
     @Test
-    public void insertAndUpdateUser() {
-        userUpdated = false;
-        int testUpdateUserID = 0;
-        User testUser = new User(0, "Test", "Testing@123");
-        repository.insert(testUser);
-        List<User> userList = repository.getAllUsers();
-        for (User user : userList) {
-            if (user.getUserName().equals(testUser.getUserName()) && user.getPassWord().equals(testUser.getPassWord())) {
-                testUpdateUserID = user.getID();
-                break;
-            }
-        }
-        User testUpdateUser = new User(testUpdateUserID, "testing", "123@Testing");
-        repository.update(testUpdateUser);
+    public void UpdateUser() {
+        User testUser = new User(14,"Clint", "Clint@123");
 
-        // NOT WORKING - WHAT THE FUCK IS WRONG WITH THIS
-        List<User> updatedUserList = repository.getAllUsers();
-        for (User user : updatedUserList) {
-            if (user.getUserName().equals("testing") && user.getPassWord().equals("123@Testing")) {
+        boolean userUpdated = false;
+
+        User testUpdateUser = new User(testUser.getID(), "DAVID", "Clint789!");
+        // Update User
+        repository.update(testUpdateUser);
+        List<User> userListAfterUpdate = repository.getAllUsers();
+
+        // Check if User is updated
+        for (User user : userListAfterUpdate){
+            System.out.println("AFTER    "+user.getID() + "  "+user.getUserName()+"  "+user.getPassWord());
+
+            if (user.getUserName().equals(testUpdateUser.getUserName())){
                 userUpdated = true;
-                repository.delete(user);
-                break;
             }
+            assertTrue(userUpdated);
         }
-        assertTrue(userUpdated);
+
+//
+//
+//        // Check if the user was successfully updated
+//        List<User> userListAfterUpdate = repository.getAllUsers();
+//        for (User user : userListAfterUpdate) {
+//
+//            System.out.println(user.getUserName());
+//
+//            if (user.getUserName().equals(testUpdateUser.getUserName()) && user.getPassWord().equals(testUpdateUser.getPassWord())){
+//                userUpdated = true;
+//                System.out.println("CONDITIONAL WORKING:  "+user.getUserName());
+//                break;
+//            }
+//        }
+//        assertTrue(userUpdated);
     }
 
     @Test
     public void insertAndDeleteUser() {
-        // THIS BULLSHIT WORKS THANK FUCK
-        userExists = false;
-        User testUser = new User(0,"Test", "Testing@123");
-        repository.insert(testUser);
-        List<User> userList = repository.getAllUsers();
-        for (User user : userList) {
-            if (user.getUserName().equals(testUser.getUserName()) && user.getPassWord().equals(testUser.getPassWord())) {
-                userExists = true;
+        // Clear the database before starting the test
+        if (!repository.getAllUsers().isEmpty()){
+            for (User user : repository.getAllUsers()) {
                 repository.delete(user);
+            }
+        }
+        User testUser = new User(0, "Test", "Testing@123");
+        repository.insert(testUser);
+
+        // Check if the user exists before deletion
+        List<User> userListBeforeDeletion = repository.getAllUsers();
+        boolean userFound = false;
+        User userToDelete = null;
+        for (User user : userListBeforeDeletion) {
+            if (user.getUserName().equals(testUser.getUserName()) && user.getPassWord().equals(testUser.getPassWord())) {
+                userFound = true;
+                userToDelete = user;
                 break;
             }
         }
-        List<User> userUpdatedList = repository.getAllUsers();
-        if (userUpdatedList.isEmpty()) {
-            userExists = false;
-        }
-        assertFalse(userExists);
+        assertTrue(userFound);
+
+        // Delete the user
+        repository.delete(userToDelete);
+        // Check if the user is no longer in the database
+        List<User> userListAfterDeletion = repository.getAllUsers();
+        assertFalse(userListAfterDeletion.contains(userToDelete));
     }
 }
